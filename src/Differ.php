@@ -10,11 +10,11 @@ function gendiff($firstFile, $secondFile)
 
     $arr = [];
 
-    $arr2 = array_merge($arrSecondFile, $arrFirstFile);
+    $arr21 = array_merge($arrSecondFile, $arrFirstFile);
 
-    ksort($arr2);
+    ksort($arr21);
 
-    foreach ($arr2 as $key => $item) {
+    foreach ($arr21 as $key => $item) {
         if (isset($arrFirstFile[$key]) && isset($arrSecondFile[$key])) {
             if ($arrSecondFile[$key] === $arrFirstFile[$key]) {
                 $arr[$key] = $item;
