@@ -30,5 +30,5 @@ function gendiff($firstFile, $secondFile)
     }
     $rez = json_encode($arr, JSON_PRETTY_PRINT);
     echo ($rez);
-	return json_encode($arr);
+    return json_encode($arr);
 }
