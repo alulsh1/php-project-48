@@ -1,0 +1,21 @@
+{
+    "name": "hexlet/code",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "alulsh"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    },
+	
+	"bin": [
+  "bin/gendiff"
+]
+}
