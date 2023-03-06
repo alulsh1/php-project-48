@@ -12,8 +12,7 @@ class DifferTest extends TestCase
 {
     public function testReverse(): void
     {
-        $this->assertEquals('{"- follow":false,"+ 
-		follow":true,"host":"hexlet.io","- proxy":"123.234.53.22","- 
-		timeout":50,"+ timeout":20,"+ verbose":true}', gendiff('file1.json', 'file2.json'));
+        $test1content = file_get_contents(__DIR__  . "/fixtures/TestResult1.txt");
+        $this->assertEquals($test1content, gendiff('file1.json', 'file2.json'));
     }
 }
