@@ -4,7 +4,7 @@ namespace Differ\Differ;
 
 function gendiff($firstFile, $secondFile)
 {
-    $path = dirname(__DIR__, 1) . '\\tests\\';
+    $path = dirname(__DIR__, 0) . '\\tests\\';
     $arrFirstFile = json_decode(file_get_contents($path . $firstFile), true);
     $arrSecondFile = json_decode(file_get_contents($path . $secondFile), true);
 
@@ -27,7 +27,7 @@ function gendiff($firstFile, $secondFile)
         } else {
             $arr['+ ' . $key] = $arrSecondFile[$key];
         }
-    }
+		}
     $rez = json_encode($arr, JSON_PRETTY_PRINT);
     echo ($rez);
     return json_encode($arr);
