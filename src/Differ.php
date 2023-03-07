@@ -4,7 +4,8 @@ namespace Differ\Differ;
 
 function gendiff($firstFile, $secondFile)
 {
-    $path = __DIR__ . '\\tests\\';
+    $path = dirname(__DIR__, 1) . '/';
+
     $arrFirstFile = json_decode(file_get_contents($path . $firstFile), true);
     $arrSecondFile = json_decode(file_get_contents($path . $secondFile), true);
 
