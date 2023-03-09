@@ -14,13 +14,15 @@ Usage:
 Options:
   -h --help     Show this screen.
   --version     Show version.
-  --format <fmt>     Report format [default: stylish].
+  --format <fmt>     Report format [default: stylish]
 
 DOC;
+
+$format = $args['--format'] ?? 'stylish';
 
 $args = Docopt::handle($doc, array('version'=>'Generate diff 1.0'));
 
 $firstFile = $args->args["<firstFile>"];
 $secondtFile = $args->args["<secondFile>"];
 
-gendiff($firstFile, $secondtFile);
+gendiff($firstFile, $secondtFile, $format);
