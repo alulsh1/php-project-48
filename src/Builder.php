@@ -14,7 +14,6 @@ function arrSort(array &$arr)
 
 function madeProbrlArrKeys(array $arr)
 {
-
     $formatted_attribs = array_reduce(
         array_keys($arr),
         function ($carry, $key) use ($arr) {
