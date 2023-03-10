@@ -10,7 +10,7 @@ use function Differ\Differ\gendiff;
 // имя класса совпадает с именем файла
 class DifferTest extends TestCase
 {
-    public function testDifferPlainStylish(): void
+    public function testDifferStylish(): void
     {
         $test1content = file_get_contents(
             __DIR__ . "/fixtures/TestResult1.txt"
@@ -42,7 +42,7 @@ class DifferTest extends TestCase
             gendiff($t1path5, $t1path6, "stylish")
         );
     }
-    public function testDifferNestedStylish(): void
+    public function testDifferNestedPlain(): void
     {
         $test4content = file_get_contents(
             __DIR__ . "/fixtures/TestResult4.txt"
@@ -52,6 +52,18 @@ class DifferTest extends TestCase
         $this->assertEquals(
             $test4content,
             gendiff($t1path5, $t1path6, "plain")
+        );
+    }
+    public function testDifferNestedJson(): void
+    {
+        $test5content = file_get_contents(
+            __DIR__ . "/fixtures/TestResult5.txt"
+        );
+        $t1path7 = "files/file5.json";
+        $t1path8 = "files/file6.json";
+        $this->assertEquals(
+            $test5content,
+            gendiff($t1path7, $t1path8, "json")
         );
     }
 }
