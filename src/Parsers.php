@@ -11,8 +11,7 @@ function parserFile(string $filePath)
     'yml' => fn($item) => Yaml::parse($item),
     'yaml' => fn($item) => Yaml::parse($item),
     ];
-    $path = dirname(__DIR__, 1) . '/';
-    $fileContent = file_get_contents($path . $filePath);
+    $fileContent = file_get_contents($filePath);
     $fileName = pathinfo($filePath)['extension'];
     $arr = $mapping[$fileName]($fileContent);
     return $arr;
