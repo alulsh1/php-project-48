@@ -54,7 +54,7 @@ function iter(array $arr, string $path = "")
                     is_array($arr["- " . $property]) &&
                     !is_array($arr["+ " . $property])
                 ) {
-                   return   "Property '{$ph}' was updated. From [complex value] to {$plus}";
+                    return   "Property '{$ph}' was updated. From [complex value] to {$plus}";
                 } elseif (
                     !is_array($arr["- " . $property]) &&
                     !is_array($arr["+ " . $property])
@@ -72,14 +72,11 @@ function iter(array $arr, string $path = "")
             } elseif ($sim == "  " && is_array($value)) {
                 return iter($value, $fullPath);
             }
-
         },
         array_keys($arr),
         array_values($arr)
     );
-	
 
-	
     return $result;
 }
 
@@ -87,6 +84,6 @@ function plain(array $arr)
 {
     $res = iter($arr);
     $flattened = flatten($res);
-	$array = array_diff($flattened, array(''));
+    $array = array_diff($flattened, array(''));
     return implode("\n", array_unique($array));
 }
