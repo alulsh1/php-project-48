@@ -18,9 +18,8 @@ function stylish($value, string $replacer = ' ', int $spacesCount = 1): string
         if (!is_array($currentValue)) {
             return toString($currentValue);
         }
-
         $indentSize = $depth * $spacesCount;
-        $currentIndent = str_repeat($replacer, $indentSize -2);
+        $currentIndent = str_repeat($replacer, $indentSize - 2);
         $bracketIndent = str_repeat($replacer, $indentSize - $spacesCount);
 
         $lines = array_map(
