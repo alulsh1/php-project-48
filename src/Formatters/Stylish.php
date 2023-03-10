@@ -1,9 +1,12 @@
 <?php
 
-namespace Differ\Formatter;
+namespace Differ\Formatters\Stylish;
 
 function toString($value)
 {
+    if ($value === null) {
+        return 'null';
+    }
     return trim(var_export($value, true), "'");
 }
 
@@ -25,7 +28,7 @@ function res($element, $simvol = ' ', $col = 1, $deph = 1)
     return $res;
 }
 
-function format($data, $simvol = ' ', $col = 1)
+function stylish($data, $simvol = ' ', $col = 1)
 {
     if (is_array($data)) {
         return "{\n" . res($data, $simvol, $col) . "}";

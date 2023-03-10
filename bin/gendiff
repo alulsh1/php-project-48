@@ -18,9 +18,11 @@ Options:
 
 DOC;
 
-$format = $args['--format'] ?? 'stylish';
+
 
 $args = Docopt::handle($doc, array('version'=>'Generate diff 1.0'));
+
+$format = $args->args['--format'] ?? 'stylish';
 
 $firstFile = $args->args["<firstFile>"];
 $secondtFile = $args->args["<secondFile>"];
