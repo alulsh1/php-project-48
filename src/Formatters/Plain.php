@@ -19,10 +19,10 @@ function toString(mixed $value)
     return "'{$res}'";
 }
 
-function iter(array $arr, array $arr2 = [], string $path = "")
+function iter(array $arr, string $path = "")
 {
     $result = array_map(
-        function ($key, $value) use ($arr, $arr2, $path) {
+        function ($key, $value) use ($arr, $path) {
             $sim = substr($key, 0, 2);
             $property = substr($key, 2);
 
@@ -44,41 +44,42 @@ function iter(array $arr, array $arr2 = [], string $path = "")
                     is_array($arr["+ " . $property]) &&
                     is_array($arr["- " . $property])
                 ) {
-                    $arr2[] = "Property '{$ph}' was updated. From [complex value] to [complex value]";
+                    return "Property '{$ph}' was updated. From [complex value] to [complex value]";
                 } elseif (
                     is_array($arr["+ " . $property]) &&
                     !is_array($arr["- " . $property])
                 ) {
-                    $arr2[] = "Property '{$ph}' was updated. From {$minus} to [complex value]";
+                    return  "Property '{$ph}' was updated. From {$minus} to [complex value]";
                 } elseif (
                     is_array($arr["- " . $property]) &&
                     !is_array($arr["+ " . $property])
                 ) {
-                    $arr2[] = "Property '{$ph}' was updated. From [complex value] to {$plus}";
+                   return   "Property '{$ph}' was updated. From [complex value] to {$plus}";
                 } elseif (
                     !is_array($arr["- " . $property]) &&
                     !is_array($arr["+ " . $property])
                 ) {
-                    $arr2[] = "Property '{$ph}' was updated. From {$minus} to {$plus}";
+                    return  "Property '{$ph}' was updated. From {$minus} to {$plus}";
                 }
             } elseif (isset($arr["+ " . $property])) {
                 if (is_array($arr["+ " . $property])) {
-                    $arr2[] = "Property '{$ph}' was added with value: [complex value]";
+                    return  "Property '{$ph}' was added with value: [complex value]";
                 } else {
-                    $arr2[] = "Property '{$ph}' was added with value: {$plus}";
+                    return  "Property '{$ph}' was added with value: {$plus}";
                 }
             } elseif (isset($arr["- " . $property])) {
-                $arr2[] = "Property '{$ph}' was removed";
+                return "Property '{$ph}' was removed";
             } elseif ($sim == "  " && is_array($value)) {
-                $arr2[] = iter($value, $arr2, $fullPath);
+                return iter($value, $fullPath);
             }
 
-            return $arr2;
         },
         array_keys($arr),
         array_values($arr)
     );
+	
 
+	
     return $result;
 }
 
@@ -86,5 +87,6 @@ function plain(array $arr)
 {
     $res = iter($arr);
     $flattened = flatten($res);
-    return implode("\n", array_unique($flattened));
+	$array = array_diff($flattened, array(''));
+    return implode("\n", array_unique($array));
 }

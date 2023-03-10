@@ -12,7 +12,7 @@ function toString(mixed $value)
 
 // BEGIN (write your solution here)
 
-function stylish($value, string $replacer = ' ', int $spacesCount = 1): string
+function stylish(array $value, string $replacer = ' ', int $spacesCount = 1): string
 {
     $iter = function ($currentValue, $depth) use (&$iter, $replacer, $spacesCount) {
         if (!is_array($currentValue)) {
