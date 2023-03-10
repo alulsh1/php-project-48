@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Stylish;
 
-function toString($value)
+function toString(mixed $value)
 {
     if ($value === null) {
         return 'null';
@@ -12,27 +12,27 @@ function toString($value)
 
 // BEGIN (write your solution here)
 
-function res(array $element, string $simvol = ' ', int $col = 1, int $deph = 1)
+function stylish($value, string $replacer = ' ', int $spacesCount = 1): string
 {
-    $res = '';
-    $accessSimvol = str_repeat($simvol, $deph * $col - 2);
-    $bracketIndent = str_repeat($simvol, $deph * $col);
-    foreach ($element as $key => $item) {
-        if (!is_array($item)) {
-            $res .= $accessSimvol . toString($key) . ": " . toString($item) . "\n";
-        } else {
-            $res .= $accessSimvol . $key . ": {\n" . res($item, $simvol, $col, $deph + 1)
-            . $bracketIndent . "}\n";
+    $iter = function ($currentValue, $depth) use (&$iter, $replacer, $spacesCount) {
+        if (!is_array($currentValue)) {
+            return toString($currentValue);
         }
-    }
-    return $res;
-}
 
-function stylish(mixed $data, string $simvol = ' ', int $col = 1)
-{
-    if (is_array($data)) {
-        return "{\n" . res($data, $simvol, $col) . "}";
-    } else {
-        return toString($data);
-    }
+        $indentSize = $depth * $spacesCount;
+        $currentIndent = str_repeat($replacer, $indentSize -2);
+        $bracketIndent = str_repeat($replacer, $indentSize - $spacesCount);
+
+        $lines = array_map(
+            fn($key, $val) => "{$currentIndent}{$key}: {$iter($val, $depth + 1)}",
+            array_keys($currentValue),
+            $currentValue
+        );
+
+        $result = ['{', ...$lines, "{$bracketIndent}}"];
+
+        return implode("\n", $result);
+    };
+
+    return $iter($value, 1);
 }

@@ -3,11 +3,8 @@
 namespace Differ\Differ;
 
 use function Differ\Parsers\parserFile;
-use function Differ\Formatter\format;
-use function Differ\Formatters\Plain\plain;
 use function Differ\Builder\recursArrPlusMinus;
 use function Differ\Formatterfabric\formatterFabric;
-use function Functional\flatten;
 
 function genDiff(string $firstFile, string $secondFile, string $format = 'stylish')
 {
