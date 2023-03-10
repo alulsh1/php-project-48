@@ -33,7 +33,7 @@ function madeProbrlArrKeys(array $arr)
 }
 
 
-function recursArrPlusMinus(array $arrFirst, array $arrSecond, array $arr = [])
+function recursArrPlusMinus(array $arrFirst, array $arrSecond)
 {
     $arr2 = [];
     $arr = array_replace_recursive($arrFirst, $arrSecond);
@@ -41,7 +41,7 @@ function recursArrPlusMinus(array $arrFirst, array $arrSecond, array $arr = [])
     foreach ($arr as $key => $item) {
         if (array_key_exists($key, $arrFirst) && array_key_exists($key, $arrSecond)) {
             if (is_array($item)) {
-                $arr2['  ' . $key] = recursArrPlusMinus($arrFirst[$key], $arrSecond[$key], $item);
+                $arr2['  ' . $key] = recursArrPlusMinus($arrFirst[$key], $arrSecond[$key]);
             } else {
                 if ($arrFirst[$key] === $arrSecond[$key]) {
                     $arr2['  ' . $key] = $item;
