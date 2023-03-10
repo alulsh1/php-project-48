@@ -9,7 +9,7 @@ use function Differ\Builder\recursArrPlusMinus;
 use function Differ\Formatterfabric\formatterFabric;
 use function Functional\flatten;
 
-function gendiff($firstFile, $secondFile, $format)
+function gendiff(string $firstFile, string $secondFile, string $format = 'stylish')
 {
     $arrFirstFile = parserFile($firstFile);
     $arrSecondFile = parserFile($secondFile);

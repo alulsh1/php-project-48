@@ -12,7 +12,7 @@ function toString($value)
 
 // BEGIN (write your solution here)
 
-function res($element, $simvol = ' ', $col = 1, $deph = 1)
+function res(array $element, string $simvol = ' ', int $col = 1, int $deph = 1)
 {
     $res = '';
     $accessSimvol = str_repeat($simvol, $deph * $col - 2);
@@ -28,7 +28,7 @@ function res($element, $simvol = ' ', $col = 1, $deph = 1)
     return $res;
 }
 
-function stylish($data, $simvol = ' ', $col = 1)
+function stylish(mixed $data, string $simvol = ' ', int $col = 1)
 {
     if (is_array($data)) {
         return "{\n" . res($data, $simvol, $col) . "}";

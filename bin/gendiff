@@ -27,4 +27,4 @@ $format = $args->args['--format'] ?? 'stylish';
 $firstFile = $args->args["<firstFile>"];
 $secondtFile = $args->args["<secondFile>"];
 
-gendiff($firstFile, $secondtFile, $format);
+echo gendiff($firstFile, $secondtFile, $format);

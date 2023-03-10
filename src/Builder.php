@@ -12,7 +12,7 @@ function arrSort(array &$arr)
     }
 }
 
-function madeProbrlArrKeys($arr)
+function madeProbrlArrKeys(array $arr)
 {
 
     $formatted_attribs = array_reduce(
@@ -33,7 +33,7 @@ function madeProbrlArrKeys($arr)
 }
 
 
-function recursArrPlusMinus($arrFirst, $arrSecond, $arr = [])
+function recursArrPlusMinus(array $arrFirst, array $arrSecond, array $arr = [])
 {
     $arr2 = [];
     $arr = array_replace_recursive($arrFirst, $arrSecond);

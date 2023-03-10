@@ -4,7 +4,7 @@ namespace Differ\Parsers;
 
 use Symfony\Component\Yaml\Yaml;
 
-function parserFile($filePath)
+function parserFile(string $filePath)
 {
     $mapping = [
     'json' => fn($item) => json_decode($item, true),

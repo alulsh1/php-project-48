@@ -4,7 +4,7 @@ namespace Differ\Formatters\Plain;
 
 use function Functional\flatten;
 
-function toString($value)
+function toString(mixed $value)
 {
     if ($value === null) {
         return "null";
@@ -19,7 +19,7 @@ function toString($value)
     return "'{$res}'";
 }
 
-function iter($arr, $arr2 = [], $path = "")
+function iter(array $arr, array $arr2 = [], string $path = "")
 {
     $result = array_map(
         function ($key, $value) use ($arr, $arr2, $path) {
@@ -82,7 +82,7 @@ function iter($arr, $arr2 = [], $path = "")
     return $result;
 }
 
-function plain($arr)
+function plain(array $arr)
 {
     $res = iter($arr);
     $flattened = flatten($res);

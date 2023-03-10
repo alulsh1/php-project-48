@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\Json;
 
-function json($arr)
+function json(array $arr)
 {
     return json_encode($arr, JSON_PRETTY_PRINT);
 }
