@@ -33,7 +33,7 @@ function madeProbrlArrKeys(array $arr)
 }
 
 
-function recursArrPlusMinus(mixed $arrFirst, mixed $arrSecond)
+function recursArrPlusMinus(array $arrFirst, array $arrSecond)
 {
     $arr2 = [];
     $arr = array_replace_recursive($arrFirst, $arrSecond);

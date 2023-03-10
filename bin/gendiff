@@ -27,4 +27,10 @@ $format = $args->args['--format'] ?? 'stylish';
 $firstFile = realpath($args->args["<firstFile>"]);
 $secondtFile = realpath($args->args["<secondFile>"]);
 
-echo genDiff($firstFile, $secondtFile, $format);
+
+
+if (!$firstFile or !$secondtFile) {
+    echo "Something is wrong with the given paths!" . PHP_EOL;
+    } else {
+    echo genDiff($firstFile, $secondtFile, $format);
+    }
