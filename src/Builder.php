@@ -40,7 +40,7 @@ function recursArrPlusMinus(array $arrFirst, array $arrSecond)
     arrSort($arr);
     foreach ($arr as $key => $item) {
         if (array_key_exists($key, $arrFirst) && array_key_exists($key, $arrSecond)) {
-            if (is_array($item)) {
+            if (is_array($item) && is_array($arrFirst[$key]) && is_array($arrSecond[$key])) {
                 $arr2['  ' . $key] = recursArrPlusMinus($arrFirst[$key], $arrSecond[$key]);
             } else {
                 if ($arrFirst[$key] === $arrSecond[$key]) {
