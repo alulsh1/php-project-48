@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-use function Differ\Differ\gendiff;
+use function Differ\Differ\genDiff;
 
 $doc = <<<DOC
 Generate diff.
@@ -24,7 +24,7 @@ $args = Docopt::handle($doc, array('version'=>'Generate diff 1.0'));
 
 $format = $args->args['--format'] ?? 'stylish';
 
-$firstFile = realpath($args->args["<firstFile>"]);
-$secondtFile = realpath($args->args["<secondFile>"]);
+$firstFile = $args->args["<firstFile>"];
+$secondtFile = $args->args["<secondFile>"];
 
-echo gendiff($firstFile, $secondtFile, $format);
+echo genDiff($firstFile, $secondtFile, $format);
