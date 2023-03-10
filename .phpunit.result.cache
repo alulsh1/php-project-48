@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":249:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:3:{s:50:"Hexlet\Phpunit\Tests\DifferTest::testDifferStylish";d:0.039;s:54:"Hexlet\Phpunit\Tests\DifferTest::testDifferNestedPlain";d:0.003;s:53:"Hexlet\Phpunit\Tests\DifferTest::testDifferNestedJson";d:0.001;}}}
