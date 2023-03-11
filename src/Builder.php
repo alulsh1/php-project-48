@@ -14,7 +14,7 @@ function arrSort(array &$arr)
     }
 }
 
-function test($arr)
+function test(array $arr)
 {
     $str = reduce_left(
         $arr,
