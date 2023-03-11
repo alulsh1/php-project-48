@@ -25,14 +25,13 @@ function iter(array $arr, string $path = "")
         function ($key, $value) use ($arr, $path) {
             $sim = substr($key, 0, 2);
             $property = substr($key, 2);
+            $pl = "- " . $property;
+            $mn = "+ " . $property;
 
             $fullPath = $path . "." . $property;
             $ph = substr($fullPath, 1);
 
-            if (
-                array_key_exists("- " . $property, $arr) &&
-                array_key_exists("+ " . $property, $arr)
-            ) {
+            if (array_key_exists($pl, $arr) && array_key_exists($mn, $arr)) {
                 $minus = toString($arr["- " . $property]);
                 $plus = toString($arr["+ " . $property]);
                 if (
