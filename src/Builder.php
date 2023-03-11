@@ -132,5 +132,6 @@ function recursArrPlusMinus1(array $arrFirst, array $arrSecond)
 
 function recursArrPlusMinus(array $arrFirst, array $arrSecond)
 {
-    return probel(recursArrPlusMinus1($arrFirst, $arrSecond));
+    $res = recursArrPlusMinus1($arrFirst, $arrSecond);
+    return probel($res);
 }

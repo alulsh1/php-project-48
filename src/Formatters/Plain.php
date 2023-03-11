@@ -25,13 +25,20 @@ function iter(array $arr, string $path = "")
         function ($key, $value) use ($arr, $path) {
             $sim = substr($key, 0, 2);
             $property = substr($key, 2);
-            $pl = "- " . $property;
-            $mn = "+ " . $property;
+            if ($sim === "+ ") {
+                $sim2 = "- ";
+            } elseif ($sim === "- ") {
+                $sim2 = "+ ";
+            }
 
             $fullPath = $path . "." . $property;
             $ph = substr($fullPath, 1);
-
-            if (array_key_exists($pl, $arr) && array_key_exists($mn, $arr)) {
+            if ($sim == "  " && is_array($value)) {
+                return iter($value, $fullPath);
+            } elseif (
+                isset($sim2) &&
+                array_key_exists($sim2 . $property, $arr)
+            ) {
                 $minus = toString($arr["- " . $property]);
                 $plus = toString($arr["+ " . $property]);
                 if (
@@ -64,8 +71,6 @@ function iter(array $arr, string $path = "")
                 }
             } elseif (isset($arr["- " . $property])) {
                 return "Property '{$ph}' was removed";
-            } elseif ($sim == "  " && is_array($value)) {
-                return iter($value, $fullPath);
             }
         },
         array_keys($arr),
