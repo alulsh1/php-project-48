@@ -2,6 +2,8 @@
 
 namespace Differ\Builder;
 
+use function Functional\reduce_left;
+
 function arrSort(array &$arr)
 {
     ksort($arr);
@@ -12,25 +14,32 @@ function arrSort(array &$arr)
     }
 }
 
-function madeProbrlArrKeys(array $arr)
+function test($arr)
 {
-    $formatted_attribs = array_reduce(
-        array_keys($arr),
-        function ($carry, $key) use ($arr) {
-            $sim = substr($key, 0, 2);
-            if ($sim == '+ ' || $sim == '- ' || $sim == '  ') {
-                $carry[$key] = is_array($arr[$key]) ? madeProbrlArrKeys($arr[$key]) : $arr[$key];
-                return $carry;
+    $str = reduce_left(
+        $arr,
+        function ($value, $index, $collection, $reduction) {
+            $sim = substr($index, 0, 2);
+            if ($sim == "+ " || $sim == "- " || $sim == "  ") {
+                if (!is_array($value)) {
+                    $reduction[$index] = $value;
+                } else {
+                    $reduction[$index] = test($value);
+                }
             } else {
-                $carry['  ' . $key] = is_array($arr[$key]) ? madeProbrlArrKeys($arr[$key]) : $arr[$key];
-                return $carry;
+                if (!is_array($value)) {
+                    $reduction["  " . $index] = $value;
+                } else {
+                    $reduction["  " . $index] = test($value);
+                }
             }
+
+            return array_merge($reduction);
         },
         []
     );
-    return $formatted_attribs;
+    return $str;
 }
-
 
 function recursArrPlusMinus(array $arrFirst, array $arrSecond)
 {
@@ -38,22 +47,32 @@ function recursArrPlusMinus(array $arrFirst, array $arrSecond)
     $arr = array_replace_recursive($arrFirst, $arrSecond);
     arrSort($arr);
     foreach ($arr as $key => $item) {
-        if (array_key_exists($key, $arrFirst) && array_key_exists($key, $arrSecond)) {
-            if (is_array($item) && is_array($arrFirst[$key]) && is_array($arrSecond[$key])) {
-                $arr2['  ' . $key] = recursArrPlusMinus($arrFirst[$key], $arrSecond[$key]);
+        if (
+            array_key_exists($key, $arrFirst) &&
+            array_key_exists($key, $arrSecond)
+        ) {
+            if (
+                is_array($item) &&
+                is_array($arrFirst[$key]) &&
+                is_array($arrSecond[$key])
+            ) {
+                $arr2["  " . $key] = recursArrPlusMinus(
+                    $arrFirst[$key],
+                    $arrSecond[$key]
+                );
             } else {
                 if ($arrFirst[$key] === $arrSecond[$key]) {
-                    $arr2['  ' . $key] = $item;
+                    $arr2["  " . $key] = $item;
                 } elseif ($arrFirst[$key] !== $arrSecond[$key]) {
-                    $arr2['- ' . $key] = $arrFirst[$key];
-                    $arr2['+ ' . $key] = $arrSecond[$key];
+                    $arr2["- " . $key] = $arrFirst[$key];
+                    $arr2["+ " . $key] = $arrSecond[$key];
                 }
             }
         } elseif (array_key_exists($key, $arrFirst)) {
-            $arr2['- ' . $key] = $arrFirst[$key];
+            $arr2["- " . $key] = $arrFirst[$key];
         } else {
-            $arr2['+ ' . $key] = $arrSecond[$key];
+            $arr2["+ " . $key] = $arrSecond[$key];
         }
     }
-    return madeProbrlArrKeys($arr2);
+    return test($arr2);
 }

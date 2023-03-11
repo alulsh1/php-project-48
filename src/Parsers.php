@@ -6,13 +6,13 @@ use Symfony\Component\Yaml\Yaml;
 
 function parserFile(string $filePath)
 {
-    $mapping = [
-    'json' => fn($item) => json_decode($item, true),
-    'yml' => fn($item) => Yaml::parse($item),
-    'yaml' => fn($item) => Yaml::parse($item),
-    ];
-    $fileContent = file_get_contents($filePath);
-    $fileName = pathinfo($filePath)['extension'];
-    $arr = $mapping[$fileName]($fileContent);
-    return $arr;
+    $str = file_get_contents($filePath, false, null, 0);
+    if ($str !== false) {
+        if (pathinfo($filePath, PATHINFO_EXTENSION) === 'json') {
+            $array = json_decode($str, true);
+        } else {
+            $array = Yaml::parse($str);
+        }
+        return $array;
+    }
 }
