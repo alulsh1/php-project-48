@@ -32,10 +32,7 @@ function iter(array $arr, string $path = "")
             $ph = substr($fullPath, 1);
             if ($sim == "  " && is_array($value)) {
                 return iter($value, $fullPath);
-            } elseif (
-                isset($sim2) &&
-                array_key_exists($sim2 . $property, $arr)
-            ) {
+            } elseif (array_key_exists($sim2 . $property, $arr)) {
                 $minus = toString($arr["- " . $property]);
                 $plus = toString($arr["+ " . $property]);
                 return "Property '{$ph}' was updated. From {$minus} to {$plus}";
