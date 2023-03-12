@@ -14,6 +14,8 @@ function toString(mixed $value)
         return "true";
     } elseif (is_numeric($value)) {
         return $value;
+    } elseif (is_array($value)) {
+        return "[complex value]";
     }
     $res = trim(var_export($value, true), "'");
     return "'{$res}'";
@@ -25,12 +27,7 @@ function iter(array $arr, string $path = "")
         function ($key, $value) use ($arr, $path) {
             $sim = substr($key, 0, 2);
             $property = substr($key, 2);
-            if ($sim === "+ ") {
-                $sim2 = "- ";
-            } elseif ($sim === "- ") {
-                $sim2 = "+ ";
-            }
-
+            $sim2 = $sim === "+ " ? "- " : "+ ";
             $fullPath = $path . "." . $property;
             $ph = substr($fullPath, 1);
             if ($sim == "  " && is_array($value)) {
@@ -41,34 +38,10 @@ function iter(array $arr, string $path = "")
             ) {
                 $minus = toString($arr["- " . $property]);
                 $plus = toString($arr["+ " . $property]);
-                if (
-                    is_array($arr["+ " . $property]) &&
-                    is_array($arr["- " . $property])
-                ) {
-                    return "Property '{$ph}' was updated. From [complex value] to [complex value]";
-                } elseif (
-                    is_array($arr["+ " . $property]) &&
-                    !is_array($arr["- " . $property])
-                ) {
-                    return "Property '{$ph}' was updated. From {$minus} to [complex value]";
-                } elseif (
-                    is_array($arr["- " . $property]) &&
-                    !is_array($arr["+ " . $property])
-                ) {
-                    return "Property '{$ph}' was updated. From [complex value] to {$plus}";
-                } elseif (
-                    !is_array($arr["- " . $property]) &&
-                    !is_array($arr["+ " . $property])
-                ) {
-                    return "Property '{$ph}' was updated. From {$minus} to {$plus}";
-                }
+                return "Property '{$ph}' was updated. From {$minus} to {$plus}";
             } elseif (isset($arr["+ " . $property])) {
                 $plus = toString($arr["+ " . $property]);
-                if (is_array($arr["+ " . $property])) {
-                    return "Property '{$ph}' was added with value: [complex value]";
-                } else {
-                    return "Property '{$ph}' was added with value: {$plus}";
-                }
+                return "Property '{$ph}' was added with value: {$plus}";
             } elseif (isset($arr["- " . $property])) {
                 return "Property '{$ph}' was removed";
             }
